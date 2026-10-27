@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>덕원여고 투자 동아리 [인사이트] - 오늘의 시황 아카이브</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F3F7;
+    --surface:#FFFFFF;
+    --surface-2:#EAECF3;
+    --text:#14151F;
+    --text-dim:#5B5F72;
+    --accent:#0E9C8C;
+    --accent-soft:#DFF3EF;
+    --up:#C23B3B;
+    --up-soft:#FAE6E6;
+    --down:#1F5FC2;
+    --down-soft:#E5EEFB;
+    --flat:#9C6B10;
+    --flat-soft:#FBF0DA;
+    --closed:#8A8D9B;
+    --closed-soft:#ECEDF2;
+    --border:#E1E3EB;
+    --shadow: 0 1px 2px rgba(20,21,31,.04), 0 8px 24px -12px rgba(20,21,31,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10111A;
+      --surface:#1A1C29;
+      --surface-2:#20222F;
+      --text:#ECEDF3;
+      --text-dim:#9CA0B5;
+      --accent:#2FE6C9;
+      --accent-soft:#16342F;
+      --up:#FF6B6B;
+      --up-soft:#331A1A;
+      --down:#6FA8FF;
+      --down-soft:#152138;
+      --flat:#FBBF24;
+      --flat-soft:#332707;
+      --closed:#6B6F80;
+      --closed-soft:#20222F;
+      --border:#2A2D3D;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Pretendard','IBM Plex Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 16px 64px;}
+  header.site{display:flex;flex-direction:column;gap:6px;margin-bottom:22px;}
+  header.site .brand{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);
+    font-weight:600;letter-spacing:.02em;
+  }
+  header.site h1{margin:0;font-size:22px;font-weight:700;line-height:1.35;}
+  header.site p.sub{margin:0;font-size:13px;color:var(--text-dim);}
+
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;}
+  .chips::-webkit-scrollbar{height:5px;}
+  .chips::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  .chip{
+    flex:0 0 auto;border:1px solid var(--border);cursor:pointer;white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;color:var(--text-dim);
+    transition:border-color .15s,color .15s;
+  }
+  .chip:hover{border-color:var(--accent);}
+  .monthchip{background:var(--surface-2);border-radius:999px;padding:6px 12px;font-size:11.5px;}
+  .monthchip.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:700;}
+  .daychip{
+    background:var(--surface);border-radius:10px;padding:8px 12px;font-size:12.5px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .daychip.active{border-color:var(--accent);color:var(--text);background:var(--accent-soft);font-weight:600;}
+  #daylist{padding-bottom:14px;margin-bottom:6px;}
+  .dot{width:7px;height:7px;border-radius:50%;display:inline-block;}
+  .dot.up{background:var(--up);}
+  .dot.down{background:var(--down);}
+  .dot.flat{background:var(--flat);}
+  .dot.closed{background:var(--closed);}
+
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    box-shadow:var(--shadow);padding:24px 22px;min-height:80px;
+  }
+  .meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .meta .date{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--text-dim);}
+  .badge{display:inline-flex;align-items:center;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;}
+  .badge.up{background:var(--up-soft);color:var(--up);}
+  .badge.down{background:var(--down-soft);color:var(--down);}
+  .badge.flat{background:var(--flat-soft);color:var(--flat);}
+  .badge.closed{background:var(--closed-soft);color:var(--closed);}
+  .headline{font-size:19px;font-weight:700;line-height:1.45;margin:4px 0 18px;}
+  .closedNote{font-size:13px;color:var(--text-dim);margin:-8px 0 16px;}
+  section.block{margin-bottom:18px;}
+  section.block h3{font-size:13px;font-weight:700;color:var(--accent);margin:0 0 8px;letter-spacing:.01em;}
+  section.block p{margin:0;font-size:14.5px;line-height:1.7;}
+  .list{display:flex;flex-direction:column;gap:10px;}
+  .list .item{border-radius:10px;padding:12px 14px;}
+  .topnews .item{background:var(--surface-2);}
+  .concepts .item{background:var(--accent-soft);}
+  .list .item .t{font-size:14px;font-weight:700;margin-bottom:4px;}
+  .list .item .d{font-size:13.5px;color:var(--text-dim);line-height:1.6;}
+  .checks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;}
+  .checks li{font-size:14px;line-height:1.6;padding-left:18px;position:relative;}
+  .checks li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700;}
+  .checks .when{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);margin-right:6px;}
+  .sources{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;}
+  .loading,.err{font-size:13.5px;color:var(--text-dim);padding:20px 4px;}
+  .err{color:var(--up);}
+  footer.site{margin-top:28px;font-size:12px;color:var(--text-dim);text-align:center;line-height:1.6;}
+  .disclaimer{
+    margin-top:10px;font-size:11.5px;color:var(--text-dim);background:var(--surface-2);
+    border-radius:10px;padding:10px 12px;line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="brand">📊 MONEY RADAR</div>
+    <h1>덕원여고 투자 동아리 [인사이트]</h1>
+    <p class="sub">매일 아침, 오늘의 시황을 한눈에 정리합니다.</p>
+  </header>
+
+  <div class="chips" id="monthlist"></div>
+  <div class="chips" id="daylist"></div>
+
+  <div class="card" id="card"><div class="loading">불러오는 중…</div></div>
+
+  <footer class="site">
+    <div class="disclaimer">
+      본 콘텐츠는 덕원여고 투자 동아리 [인사이트]가 학습 목적으로 정리한 시황 요약이며, 특정 종목에 대한 투자 권유나 추천이 아닙니다. 투자 판단과 그 결과에 대한 책임은 투자자 본인에게 있습니다.
+    </div>
+    <div style="margin-top:12px;">© 덕원여고 투자 동아리 [인사이트] · Daily Market Archive</div>
+  </footer>
+</div>
+
+<script>
+// 데이터 구조 (scripts/add-day.mjs 가 관리)
+//   data/months.json              ["2026-11", "2026-10", ...]
+//   data/YYYY-MM/index.json       [{date, weekday, mood, headline}, ...]  최신 날짜가 앞
+//   data/YYYY-MM/YYYY-MM-DD.json  하루치 시황
+const MOOD_LABEL = { up: "상승", down: "하락", flat: "보합", closed: "휴장" };
+const MONTHS_CACHE = {};
+let months = [];
+let activeMonth = null;
+let activeDate = null;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const safeUrl = u => /^https?:\/\//.test(String(u || "")) ? esc(u) : "#";
+
+function fmtDate(d){ return d.replaceAll("-", "."); }
+function fmtMonth(m){ const [y, mo] = m.split("-"); return `${y}년 ${Number(mo)}월`; }
+
+async function getJson(url){
+  const res = await fetch(url, { cache: "no-store" });
+  if(!res.ok) throw new Error(url + " (HTTP " + res.status + ")");
+  return res.json();
+}
+
+async function monthIndex(m){
+  if(!MONTHS_CACHE[m]) MONTHS_CACHE[m] = await getJson(`data/${m}/index.json`);
+  return MONTHS_CACHE[m];
+}
+
+function renderMonths(){
+  $("monthlist").innerHTML = months.map(m =>
+    `<button class="chip monthchip ${m === activeMonth ? "active" : ""}" data-m="${esc(m)}">${esc(fmtMonth(m))}</button>`
+  ).join("");
+  $("monthlist").querySelectorAll("button").forEach(b => b.onclick = () => selectMonth(b.dataset.m));
+}
+
+async function selectMonth(m, date){
+  activeMonth = m;
+  renderMonths();
+  try{
+    const days = await monthIndex(m);
+    const target = date && days.some(d => d.date === date) ? date : days[0]?.date;
+    renderDays(days, target);
+    if(target) await selectDay(target);
+    else $("card").innerHTML = `<div class="loading">이 달에는 아직 기록이 없습니다.</div>`;
+  }catch(e){
+    $("card").innerHTML = `<div class="err">목록을 불러오지 못했습니다. (${esc(e.message)})</div>`;
+  }
+}
+
+function renderDays(days, active){
+  $("daylist").innerHTML = days.map(d =>
+    `<button class="chip daychip ${d.date === active ? "active" : ""}" data-d="${esc(d.date)}">
+      <span class="dot ${esc(d.mood)}"></span>${esc(fmtDate(d.date))}(${esc(d.weekday)})
+    </button>`
+  ).join("");
+  $("daylist").querySelectorAll("button").forEach(b => b.onclick = () => {
+    $("daylist").querySelectorAll("button").forEach(x => x.classList.toggle("active", x === b));
+    selectDay(b.dataset.d);
+  });
+}
+
+async function selectDay(date){
+  activeDate = date;
+  if(location.hash !== "#" + date) history.replaceState(null, "", "#" + date);
+  $("card").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try{
+    const d = await getJson(`data/${date.slice(0, 7)}/${date}.json`);
+    if(activeDate === date) renderCard(d);
+  }catch(e){
+    $("card").innerHTML = `<div class="err">시황을 불러오지 못했습니다. (${esc(e.message)})</div>`;
+  }
+}
+
+function section(title, inner){ return inner ? `<section class="block"><h3>${title}</h3>${inner}</section>` : ""; }
+
+function renderCard(d){
+  const p = v => v ? `<p>${esc(v)}</p>` : "";
+  const items = (arr, a, b, cls) => (arr && arr.length)
+    ? `<div class="list ${cls}">` + arr.map(x => `<div class="item"><div class="t">${esc(x[a])}</div><div class="d">${esc(x[b])}</div></div>`).join("") + `</div>`
+    : "";
+  const checks = (d.checkpoints && d.checkpoints.length)
+    ? `<ul class="checks">` + d.checkpoints.map(c => `<li>${c.time ? `<span class="when">${esc(c.time)}</span>` : ""}${esc(c.item)}</li>`).join("") + `</ul>`
+    : "";
+  const sources = (d.sources && d.sources.length)
+    ? `<ul class="sources">` + d.sources.map(s => `<li><a href="${safeUrl(s.u)}" target="_blank" rel="noopener">${esc(s.t)}</a></li>`).join("") + `</ul>`
+    : "";
+
+  $("card").innerHTML = `
+    <div class="meta">
+      <span class="date">${esc(fmtDate(d.date))} (${esc(d.weekday)})</span>
+      <span class="badge ${esc(d.mood)}">${esc(MOOD_LABEL[d.mood] || d.mood)}</span>
+    </div>
+    <div class="headline">${esc(d.headline)}</div>
+    ${d.closedNote ? `<div class="closedNote">${esc(d.closedNote)}</div>` : ""}
+    ${section("🌎 글로벌 증시 동향", p(d.us_market))}
+    ${section("🇰🇷 국내 증시 및 주요 이슈", p(d.kr_market))}
+    ${section("📈 핵심 거시경제 지표", p(d.macro))}
+    ${section(`🔥 오늘의 투자자 관심 뉴스 TOP ${(d.top_news || []).length}`, items(d.top_news, "title", "impact", "topnews"))}
+    ${section("📚 핵심 개념 (오늘의 뉴스 용어 풀이)", items(d.concepts, "term", "desc", "concepts"))}
+    ${section("📌 오늘의 체크포인트", checks)}
+    ${section("🔗 참고 출처", sources)}
+  `;
+}
+
+async function init(){
+  try{
+    months = await getJson("data/months.json");
+    if(!Array.isArray(months) || months.length === 0) throw new Error("아직 기록이 없습니다");
+    const h = decodeURIComponent(location.hash.slice(1));
+    const m = /^\d{4}-\d{2}-\d{2}$/.test(h) && months.includes(h.slice(0, 7)) ? h.slice(0, 7) : months[0];
+    await selectMonth(m, h);
+  }catch(e){
+    $("card").innerHTML = `<div class="err">데이터를 불러오지 못했습니다. (${esc(e.message)})</div>`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
